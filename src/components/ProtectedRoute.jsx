@@ -7,7 +7,7 @@ const ProtectedRoute = ({ Component }) => {
     const navigate = useNavigate();
     const { user } = useContext(AuthContext)
     useEffect(() => {
-        if (user == null) {
+        if (user === null) {
             navigate("/login");
         }
     }, [user])
