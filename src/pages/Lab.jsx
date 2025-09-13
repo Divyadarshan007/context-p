@@ -1,70 +1,57 @@
 import { Link, useNavigate } from "react-router-dom"
 import { LabContext } from "../context/LabContextProvider"
 import { useContext } from "react"
+import { Button } from "../components/ui/button"
+import {
+    Table,
+    TableBody,
+    TableCaption,
+    TableCell,
+    TableHead,
+    TableHeader,
+    TableRow,
+} from "@/components/ui/table"
 
 const Lab = () => {
     const navigate = useNavigate()
     const { labs, deleteLab } = useContext(LabContext)
     return (
-        <div className="bg-gray-800 py-10 h-screen ">
-            <div className="container mx-auto flex justify-between py-10    ">
-                <h1 className="text-3xl">All Labs</h1>
-
-                <button onClick={() => navigate('/add-lab')} className="border px-7 py-2 m-5">Add Lab</button>
+        <div className="bg-[#e3e3e3]  py-10 h-screen ">
+            <div className="container mx-auto flex justify-between py-10">
+                <h1 className="text-3xl text-background">All Labs</h1>
+                <Button onClick={() => navigate('/add-lab')} className="border bg-primary  px-7 py-2 m-5">Add Lab</Button>
             </div>
             <div className="container mx-auto">
                 <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-                    <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                        <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                            <tr>
-                                <th scope="col" className="px-6 py-3">
-                                    No.
-                                </th>
-                                <th scope="col" className="px-6 py-3">
-                                    Name
-                                </th>
-                                <th scope="col" className="px-6 py-3">
-                                    Capacity
-                                </th>
-                                <th scope="col" className="px-6 py-3">
-                                    Location
-                                </th>
-                                <th scope="col" className="px-6 py-3">
-                                    Created on
-                                </th>
-                                <th scope="col" className="px-6 py-3">
-                                    Action
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
+                    <Table className='bg-primary'>
+                        <TableHeader className='text-muted-background'>
+                            <TableRow>
+                                <TableHead className="w-[100px] text-center">No.</TableHead>
+                                <TableHead className='text-center'>Name</TableHead>
+                                <TableHead className='text-center'>Capacity</TableHead>
+                                <TableHead className='text-center'>Location</TableHead>
+                                <TableHead className='text-center'>Created On</TableHead>
+                                <TableHead className='text-center'>Action</TableHead>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody className='text-muted-foreground font-medium'>
                             {
                                 labs.map((lab, idx) => {
-                                    return <tr key={idx} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                        <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            {idx + 1}
-                                        </th>
-                                        <td className="px-6 py-4">
-                                            {lab.name}
-                                        </td>
-                                        <td className="px-6 py-4">
-                                            {lab.capacity}
-                                        </td>
-                                        <td className="px-6 py-4">
-                                            {lab.location}
-                                        </td>
-                                        <td className="px-6 py-4">
-                                            {lab.createdAt.toDate().toLocaleDateString("en-In")}
-                                        </td>
-                                        <td className="px-6 py-4 text-right flex gap-4">
+                                    return <TableRow key={idx}>
+                                        <TableCell className="font-medium text-center">{idx + 1}</TableCell>
+                                        <TableCell className='text-center'>{lab.name}</TableCell>
+                                        <TableCell className='text-center'>{lab.capacity}</TableCell>
+                                        <TableCell className='text-center'>{lab.location}</TableCell>
+                                        <TableCell className='text-center'>{lab.createdAt.toDate().toLocaleDateString("en-In")}</TableCell>
+                                        <TableCell className="flex justify-center gap-4">
                                             <Link to={`/edit-lab/${lab.id}`} className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</Link>
                                             <Link onClick={() => deleteLab(lab.id)} className="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</Link>
-                                        </td>
-                                    </tr>
+                                        </TableCell>
+                                    </TableRow>
                                 })
                             }
-                        </tbody>
-                    </table>
+                        </TableBody>
+                    </Table>
                 </div>
 
 
