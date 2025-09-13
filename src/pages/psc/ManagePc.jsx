@@ -1,20 +1,48 @@
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { LabContext } from "../../context/LabContextProvider"
 import { PcContext } from "../../context/PcContextProvider"
+import { useNavigate, useParams } from "react-router-dom"
+import { doc, getDoc } from "firebase/firestore"
+import { db } from "../../config/firebase"
+
 
 const ManagePc = () => {
     const [isEdit, setIsEdit] = useState(false)
     const [input, setInput] = useState({
         name: '', labId: '', status: ''
     })
+    const { pcId } = useParams()
+    const navigate = useNavigate()
     const { labs } = useContext(LabContext)
-    const { addPc } = useContext(PcContext)
+    const { addPc, updatePc } = useContext(PcContext)
+    useEffect(() => {
+        if (pcId) {
+            getPc()
+            setIsEdit(true)
+        }
+    }, [pcId])
+    console.log(isEdit);
+
     const handleChange = (e) => {
         setInput({ ...input, [e.target.id]: e.target.value })
     }
+    const getPc = async () => {
+        const pcSnapshot = await getDoc(doc(db, "pcs", pcId))
+        if (pcSnapshot.exists()) {
+            setInput(pcSnapshot.data())
+        }
+    }
     const handleSubmit = async (e) => {
         e.preventDefault()
-        await addPc(input)
+        if (isEdit) {
+
+            await updatePc(pcId, input)
+            navigate('/pcs')
+        } else {
+            await addPc(input)
+            navigate('/pcs')
+        }
+
     }
     return (
         <div className="">

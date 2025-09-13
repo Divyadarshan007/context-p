@@ -23,6 +23,7 @@ const App = () => {
         <Route path="/add-pc" element={<ManagePc />} />
         <Route path="/pcs" element={<Pcs />} />
         <Route path="/edit-lab/:labId" element={<AddLab />} />
+        <Route path="/edit-pc/:pcId" element={<ManagePc />} />
         <Route path="*" element={<ErrorPage/>} />
        
       </Routes>
