@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom"
 import { LabContext } from "../context/LabContextProvider"
 import { useContext } from "react"
-import { Button } from "../components/ui/button"
+
 import {
     Table,
     TableBody,
@@ -16,15 +16,15 @@ const Lab = () => {
     const navigate = useNavigate()
     const { labs, deleteLab } = useContext(LabContext)
     return (
-        <div className="bg-[#e3e3e3]  py-10 h-screen ">
+        <div className="bg-[#e3e3e3] py-10 h-screen ">
             <div className="container mx-auto flex justify-between py-10">
-                <h1 className="text-3xl text-background">All Labs</h1>
-                <Button onClick={() => navigate('/add-lab')} className="border bg-primary  px-7 py-2 m-5">Add Lab</Button>
+                <h1 className="text-3xl text-foreground font-semibold">All Labs</h1>
+                <button onClick={() => navigate('/add-lab')} className="border bg-primary text-background font-medium px-7 py-2 m-5">Add Lab</button>
             </div>
             <div className="container mx-auto">
-                <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-                    <Table className='bg-primary'>
-                        <TableHeader className='text-muted-background'>
+                <div className="relative overflow-x-auto   shadow-md ">
+                    <Table className='bg-gray-100  '>
+                        <TableHeader className='text-foreground border-b border-gray'>
                             <TableRow>
                                 <TableHead className="w-[100px] text-center">No.</TableHead>
                                 <TableHead className='text-center'>Name</TableHead>
@@ -34,7 +34,7 @@ const Lab = () => {
                                 <TableHead className='text-center'>Action</TableHead>
                             </TableRow>
                         </TableHeader>
-                        <TableBody className='text-muted-foreground font-medium'>
+                        <TableBody className='text-foreground font-medium'>
                             {
                                 labs.map((lab, idx) => {
                                     return <TableRow key={idx}>
