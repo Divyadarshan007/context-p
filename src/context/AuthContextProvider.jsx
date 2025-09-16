@@ -14,10 +14,16 @@ const AuthContextProvider = ({ children }) => {
         return () => unsubscibe()
     }, [])
     if (loader) {
-        // return <Skeleton className="h-[20px] w-[100px] rounded-full" />
-        <div className="flex justify-center items-center h-screen bg-black">
-            <h1 className="text-5xl  text-white  font-bold">Loading...</h1>
-        </div>
+        return <div className="flex justify-center items-center h-screen flex-col space-y-3">
+                  <Skeleton className="h-[125px] w-[250px] rounded-xl" />
+                  <div className="space-y-2">
+                      <Skeleton className="h-4 w-[250px]" />
+                      <Skeleton className="h-4 w-[200px]" />
+                  </div>
+              </div>
+        // <div className="flex justify-center items-center h-screen bg-black">
+        //     <h1 className="text-5xl  text-white  font-bold">Loading...</h1>
+        // </div>
     }
     const handleLogin = async (email, password) => {
         return await signInWithEmailAndPassword(auth, email, password)

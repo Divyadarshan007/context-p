@@ -14,7 +14,7 @@ const Header = () => {
             {
                 pathname == "/login" ? "" : <nav className=" bg-[#e3e3e3] relative z-20  w-full shadow-lg border-b border-[#e3e3e3] ">
                     <div className="max-w-screen-xl flex flex-wrap items-center      justify-between mx-auto p-4 ">
-                        <a href="https://flowbite.com/" className="flex items-center space-x-3 rtl:space-x-reverse">
+                        <a href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
                             
                             <span className="self-center text-3xl font-semibold whitespace-nowrap text-[#131413]">CodeLab</span>
                         </a>

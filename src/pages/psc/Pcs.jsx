@@ -8,11 +8,19 @@ const Pcs = () => {
   const { pcs, deletePc } = useContext(PcContext);
   const { labs } = useContext(LabContext);
 
+
+
   const showLab = (labId) => {
-    const labName = labs.find((lab) => {
-      return lab.id == labId;
-    });
-    return labName.name;
+    if(labs.length !== 0){
+      const labName = labs.find((lab) => {
+        return lab.id == labId;
+      });
+
+      return labName.name ? labName.name : "Assigned"
+    }else{
+      return "Not Assigned"
+    }
+
   };
 
   return (

@@ -17,6 +17,7 @@ const LabContextProvider = ({ children }) => {
                 ...lab,
                 createdAt: new Date()
             })
+            fetchData()
 
         } catch (err) {
             alert(err)

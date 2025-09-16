@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom"
+import { Skeleton } from "@/components/ui/skeleton"
 
 const AllStudents = () => {
   const navigate = useNavigate()
@@ -14,6 +15,7 @@ const AllStudents = () => {
           </button>
         </div>
       </div>
+      
     </div>
   )
 }
