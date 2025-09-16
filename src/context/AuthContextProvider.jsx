@@ -1,6 +1,7 @@
 import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
 import { createContext, useEffect, useState } from "react"
 import { auth } from "../config/firebase";
+import { Skeleton } from "@/components/ui/skeleton"
 export const AuthContext = createContext();
 const AuthContextProvider = ({ children }) => {
     const [loader, setLoader] = useState(true)
@@ -13,7 +14,8 @@ const AuthContextProvider = ({ children }) => {
         return () => unsubscibe()
     }, [])
     if (loader) {
-        return <div className="flex justify-center items-center h-screen bg-black">
+        // return <Skeleton className="h-[20px] w-[100px] rounded-full" />
+        <div className="flex justify-center items-center h-screen bg-black">
             <h1 className="text-5xl  text-white  font-bold">Loading...</h1>
         </div>
     }
