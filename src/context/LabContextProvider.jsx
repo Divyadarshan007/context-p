@@ -1,4 +1,4 @@
-import { addDoc, collection, deleteDoc, doc, getDocs, updateDoc } from "firebase/firestore"
+import { addDoc, collection, deleteDoc, doc, getDocs, query, updateDoc, where, writeBatch } from "firebase/firestore"
 import { createContext, useEffect, useState } from "react"
 import { db } from "../config/firebase"
 
@@ -37,6 +37,16 @@ const LabContextProvider = ({ children }) => {
     }
 
     const deleteLab = async (labId) => {
+        const qry = query(collection(db, "pcs"), where("labId", "==", labId))
+        console.log(qry)
+        const toUpdatedPcSnapshot = await getDocs(qry);
+
+        const batch = writeBatch(db);
+        toUpdatedPcSnapshot.forEach((pcDoc) => {
+            batch.update(pcDoc.ref, { labId: null });
+        })
+
+        await batch.commit();
         await deleteDoc(doc(db, "labs", labId))
         fetchData()
     }
