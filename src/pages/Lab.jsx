@@ -5,6 +5,7 @@ import { useContext } from "react"
 const Lab = () => {
     const navigate = useNavigate()
     const { labs, deleteLab } = useContext(LabContext)
+
     return (
         <div className="bg-[#e3e3e3] py-10 h-screen ">
             <div className="container mx-auto ">
@@ -21,6 +22,7 @@ const Lab = () => {
                                 <th className="text-center px-6 py-3">No.</th>
                                 <th className='text-center px-6 py-3'>Name</th>
                                 <th className='text-center px-6 py-3'>Capacity</th>
+                                <th className='text-center px-6 py-3'>Remaining Space</th>
                                 <th className='text-center px-6 py-3'>Location</th>
                                 <th className='text-center px-6 py-3'>Created On</th>
                                 <th className='text-center px-6 py-3'>Action</th>
@@ -33,6 +35,11 @@ const Lab = () => {
                                         <th className="text-center px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">{idx + 1}</th>
                                         <td className='text-center px-6 py-4'>{lab.name}</td>
                                         <td className='text-center px-6 py-4'>{lab.capacity}</td>
+                                        <td className='text-center  '>
+                                            <div className="bg-green-600 px-4 py-1 rounded-full text-white inline-block">
+                                                {lab.assigned <= 0 ? "Full" : lab.assigned}
+                                            </div>
+                                        </td>
                                         <td className='text-center px-6 py-4'>{lab.location}</td>
                                         <td className='text-center px-6 py-4'>{lab.createdAt.toDate().toLocaleDateString("en-In")}</td>
                                         <td className="px-6 py-4 justify-center flex gap-4">

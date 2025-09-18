@@ -57,7 +57,7 @@ const ManagePc = () => {
                         <option value>Choose a Lab</option>
                         {
                             labs && labs.map((lab, idx) => {
-                                return <option key={idx} value={lab.id}>{lab.name}</option>
+                                return lab.assigned <= 0 ? "" : <option key={idx} value={lab.id}>{lab.name}</option>
                             })
                         }
                     </select>

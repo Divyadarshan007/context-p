@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react"
 import { LabContext } from "../context/LabContextProvider"
 import { useNavigate, useParams } from "react-router-dom"
-import { doc, getDoc, updateDoc } from "firebase/firestore"
+import { doc, getDoc } from "firebase/firestore"
 import { db } from "../config/firebase"
 
 const AddLab = () => {
@@ -53,7 +53,7 @@ const AddLab = () => {
                     <input type="number" value={input.capacity} onChange={handleChange} id="capacity" className="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " required />
                 </div>
                 <div className="mb-5">
-                    <label htmlFor="location" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Repeat password</label>
+                    <label htmlFor="location" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Location</label>
                     <input type="text" value={input.location} onChange={handleChange} id="location" className="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " required />
                 </div>
 

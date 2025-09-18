@@ -6,23 +6,9 @@ import { LabContext } from "../../context/LabContextProvider";
 const Pcs = () => {
   const navigate = useNavigate();
   const { pcs, deletePc } = useContext(PcContext);
-  const { labs } = useContext(LabContext);
+  const {showLab} = useContext(LabContext)
 
-  const showLab = (labId) => {
-    
-    
-    
-    if(labs.length !== 0){
-      const labName = labs.find((lab) => {
-        return lab.id == labId;
-      });
-
-      return labName?.name ? labName?.name : "Assigned"
-    }else{
-      return "Not Assigned"
-    }
-
-  };
+ 
 
   return (
     <div className="py-10 bg-[#e3e3e3]  h-screen">

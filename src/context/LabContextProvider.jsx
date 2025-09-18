@@ -13,8 +13,11 @@ const LabContextProvider = ({ children }) => {
     }, [])
     const addLab = async (lab) => {
         try {
-            const res = await addDoc(collectionRef, {
-                ...lab,
+            const { capacity, ...data } = lab
+            await addDoc(collectionRef, {
+                ...data,
+                capacity: Number(capacity),
+                assigned: Number(capacity),
                 createdAt: new Date()
             })
             fetchData()
@@ -45,19 +48,36 @@ const LabContextProvider = ({ children }) => {
         toUpdatedPcSnapshot.forEach((pcDoc) => {
             batch.update(pcDoc.ref, { labId: null });
         })
-
+        
         await batch.commit();
         await deleteDoc(doc(db, "labs", labId))
         fetchData()
     }
 
     const updateLab = async (labId, updatedVal) => {
-        await updateDoc(doc(db, "labs", labId), updatedVal)
+        const { capacity, ...data } = updatedVal
+        await updateDoc(doc(db, "labs", labId), {
+            ...data,
+            capacity: Number(capacity),
+            assigned: Number(capacity),
+        })
         fetchData()
     }
+    const showLab = (labId) => {
+        if (labs.length !== 0) {
+            const labName = labs.find((lab) => {
+                return lab.id == labId;
+            });
+
+            return labName?.name ? labName?.name : "Not Assigned"
+
+        } else {
+            return "Not Assigned"
+        }
+    };
 
     const value = {
-        addLab, labs, deleteLab, updateLab
+        addLab, labs, deleteLab, updateLab, showLab, fetchData
     }
     return (
         <LabContext.Provider value={value}>
