@@ -9,9 +9,9 @@ import { db } from "../../config/firebase"
 const ManagePc = () => {
     const [isEdit, setIsEdit] = useState(false)
     const [input, setInput] = useState({
-        name: '', labId: '', status: ''
+        name: '', labId: ''
     })
-    const { pcId } = useParams()
+    const { pcId, labId } = useParams()
     const navigate = useNavigate()
     const { labs } = useContext(LabContext)
     const { addPc, updatePc } = useContext(PcContext)
@@ -21,7 +21,6 @@ const ManagePc = () => {
             setIsEdit(true)
         }
     }, [pcId])
-    console.log(isEdit);
 
     const handleChange = (e) => {
         setInput({ ...input, [e.target.id]: e.target.value })
@@ -35,8 +34,7 @@ const ManagePc = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
         if (isEdit) {
-
-            await updatePc(pcId, input)
+            await updatePc(pcId, input, labId)
             navigate('/pcs')
         } else {
             await addPc(input)
@@ -45,7 +43,7 @@ const ManagePc = () => {
 
     }
     return (
-        <div className="">
+        <div className="bg-[#e3e3e3] h-screen py-10">
             <form className="max-w-sm mx-auto" onSubmit={handleSubmit}>
                 <div className="mb-5">
                     <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Pc Name</label>
@@ -62,15 +60,7 @@ const ManagePc = () => {
                         }
                     </select>
                 </div>
-                <div className="mb-5">
-                    <label htmlFor="status" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Repeat password</label>
-                    <select id="status" value={input.status} onChange={handleChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                        <option value>Status</option>
-                        <option value="Available">Available</option>
-                        <option value="Assigned">Assigned</option>
-                        <option value="Under Maintanance">Under Maintanance</option>
-                    </select>
-                </div>
+             
                 <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">{isEdit ? "Update" : "Add New"} Lab</button>
             </form>
         </div>

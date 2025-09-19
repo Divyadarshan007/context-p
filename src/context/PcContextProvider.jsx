@@ -11,6 +11,7 @@ const PcContextProvider = ({ children }) => {
     await addDoc(collection(db, "pcs"), {
       createdAt: new Date(),
       ...pc,
+      status:"Available"
     });
 
     await updateDoc(doc(db, "labs", pc.labId), { assigned: increment(-1) })
@@ -31,15 +32,18 @@ const PcContextProvider = ({ children }) => {
     });
     setPcs(allPcs);
   };
-  const updatePc = async (pcId, updatedVal) => {
+  const updatePc = async (pcId, updatedVal,labId) => {
     await updateDoc(doc(db, "labs", updatedVal.labId), { assigned: increment(-1) })
     await updateDoc(doc(db, "pcs", pcId), updatedVal)
+    await updateDoc(doc(db, "labs", labId), { assigned: increment(1) })
     fetchAllPc()
     fetchData()
   }
-  const deletePc = async (pcId) => {
+  const deletePc = async (pcId, labId) => {
     await deleteDoc(doc(db, "pcs", pcId))
+    await updateDoc(doc(db, "labs", labId), { assigned: increment(1) })
     fetchAllPc()
+    fetchData()
   };
 
   const showPc = (pcId) => {
@@ -53,6 +57,20 @@ const PcContextProvider = ({ children }) => {
     }
   };
 
+  const handleRepair = async (pcId, value) => {
+    if (value == "Available" || value == "Occupied") {
+      await updateDoc(doc(db, "pcs", pcId), {
+        status: "in-Repair"
+      })
+    } else if (value == "in-Repair") {
+      await updateDoc(doc(db, "pcs", pcId), {
+        status: "Available"
+      })
+    }
+
+
+    fetchAllPc()
+  }
 
 
   let value = {
@@ -60,7 +78,9 @@ const PcContextProvider = ({ children }) => {
     pcs,
     deletePc,
     updatePc,
-    showPc
+    showPc,
+    handleRepair,
+    fetchAllPc
   };
   return <PcContext.Provider value={value}>{children}</PcContext.Provider>;
 };

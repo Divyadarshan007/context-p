@@ -1,15 +1,22 @@
-import { addDoc, collection, getDocs } from "firebase/firestore"
-import { createContext, useEffect, useState } from "react"
+import { addDoc, collection, doc, getDocs, updateDoc } from "firebase/firestore"
+import { createContext, useContext, useEffect, useState } from "react"
 import { db } from "../config/firebase"
+import { PcContext } from "./PcContextProvider"
 export const StudentContext = createContext()
 
 const StudentContextProvider = ({ children }) => {
     const [students, setStudents] = useState([])
+    const {fetchAllPc} = useContext(PcContext)
     const addStudent = async (stu) => {
         await addDoc(collection(db, "students"), {
             ...stu,
             createdAt: new Date()
         })
+        await updateDoc(doc(db, "pcs", stu.pcId),{
+            status:"Occupied"
+        })
+        fetchAllStudent()
+        fetchAllPc()
     }
     useEffect(() => {
         fetchAllStudent()

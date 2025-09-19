@@ -1,6 +1,9 @@
 import { Link, useNavigate } from "react-router-dom"
 import { LabContext } from "../context/LabContextProvider"
 import { useContext } from "react"
+import { Badge } from "@/components/ui/badge"
+import { EclipseIcon, XIcon } from "lucide-react"
+import { Button } from "@/components/ui/button"
 
 const Lab = () => {
     const navigate = useNavigate()
@@ -8,11 +11,30 @@ const Lab = () => {
 
     return (
         <div className="bg-[#e3e3e3] py-10 h-screen ">
-            <div className="container mx-auto ">
-                <div className="flex justify-between items-center py-10">
-                    <h1 className="text-3xl text-foreground font-semibold">All Labs</h1>
-                    <button onClick={() => navigate('/add-lab')} className="border bg-[#010201] text-background font-medium px-7 py-2 m-5">Add Lab</button>
-                </div>
+            <div className="container mx-auto py-10">
+                    <div className="dark bg-muted  text-foreground px-4 md:py-2">
+                        <div className="flex gap-2 md:items-center">
+                            <div className="flex grow gap-3 md:items-center">
+                                <EclipseIcon
+                                    className="shrink-0 opacity-60 max-md:mt-0.5"
+                                    size={16}
+                                    aria-hidden="true"
+                                />
+                                <div className="flex grow flex-col justify-between gap-3 md:flex-row md:items-center">
+                                    <p className="text-lg text-[#e3e3e3] font-semibold">
+                                        All Labs
+                                    </p>
+                                    <div className="flex gap-2 max-md:flex-wrap">
+                                        <Button onClick={() => navigate('/add-lab')} size="sm" className="text-sm bg-[#e3e3e3] text-[#212121] hover:bg-[#cacaca] transition-all">
+                                            Add Lab
+                                        </Button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                
             </div>
             <div className="container mx-auto">
                 <div className="relative overflow-x-auto shadow-md ">
@@ -36,9 +58,14 @@ const Lab = () => {
                                         <td className='text-center px-6 py-4'>{lab.name}</td>
                                         <td className='text-center px-6 py-4'>{lab.capacity}</td>
                                         <td className='text-center  '>
-                                            <div className="bg-green-600 px-4 py-1 rounded-full text-white inline-block">
+                                            <Badge variant="outline" className="gap-1.5">
+                                                <span
+                                                    className={`size-1.5 rounded-full ${lab.assigned <= 0 ? "bg-emerald-500" : "bg-orange-500"} `}
+                                                    aria-hidden="true"
+                                                ></span>
                                                 {lab.assigned <= 0 ? "Full" : lab.assigned}
-                                            </div>
+                                            </Badge>
+
                                         </td>
                                         <td className='text-center px-6 py-4'>{lab.location}</td>
                                         <td className='text-center px-6 py-4'>{lab.createdAt.toDate().toLocaleDateString("en-In")}</td>
