@@ -2,17 +2,27 @@ import { useContext, useEffect, useState } from "react"
 import { LabContext } from "../../context/LabContextProvider"
 import { PcContext } from "../../context/PcContextProvider"
 import { StudentContext } from "../../context/StudentContextProvider"
+import { useNavigate, useParams } from "react-router-dom"
+import { doc, getDoc } from "firebase/firestore"
+import { db } from "../../config/firebase"
 
 const ManageStudent = () => {
   const [isEdit, setIsEdit] = useState(false)
   const [input, setInput] = useState({
     name: '', email: '', grid: '', labId: '', pcId: ''
   })
+  const { stuId } = useParams();
+  const navigate = useNavigate()
   const [filteredPc, setFilteredPc] = useState([])
   const { labs, showLab } = useContext(LabContext)
   const { pcs, showPc } = useContext(PcContext)
-  const { addStudent } = useContext(StudentContext)
-
+  const { addStudent, editStudent } = useContext(StudentContext)
+  useEffect(() => {
+    if (stuId) {
+      getStudent();
+      setIsEdit(true);
+    }
+  }, [stuId])
   useEffect(() => {
     if (input.labId) {
       const availablePc = pcs.filter((pc) => {
@@ -21,13 +31,25 @@ const ManageStudent = () => {
       setFilteredPc(availablePc)
     }
   }, [input.labId])
-
+  const getStudent = async () => {
+    const studentSnapshot = await getDoc(doc(db, 'students', stuId))
+    if (studentSnapshot.exists()) {
+      setInput(studentSnapshot.data())
+    }
+  }
   const handleChange = (e) => {
     setInput({ ...input, [e.target.id]: e.target.value })
   }
   const handleSubmit = async (e) => {
     e.preventDefault()
-    addStudent(input)
+    if (isEdit) {
+      await editStudent(input, stuId)
+      navigate('/students')
+
+    } else {
+     await addStudent(input)
+      navigate('/students')
+    }
   }
   return (
     <section className="bg-[#e3e3e3] h-screen">

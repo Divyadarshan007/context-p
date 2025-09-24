@@ -11,7 +11,7 @@ const Lab = () => {
 
     return (
         <div className="bg-[#e3e3e3] py-10 h-screen ">
-            <div className="container mx-auto py-10">
+            <div className="container mx-auto pt-10">
                     <div className="dark bg-muted  text-foreground px-4 md:py-2">
                         <div className="flex gap-2 md:items-center">
                             <div className="flex grow gap-3 md:items-center">

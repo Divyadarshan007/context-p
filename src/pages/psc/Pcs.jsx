@@ -6,7 +6,6 @@ import { Badge } from "@/components/ui/badge";
 import { EclipseIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useId } from "react";
-
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 
@@ -29,7 +28,7 @@ const Pcs = () => {
   const id = useId();
 
   const [currentPage, setCurrentPage] = useState(1);
-  const rowsPerPage = 10;
+  const rowsPerPage = 5;
   const totalPages = Math.ceil(pcs.length / rowsPerPage);
 
   const startIndex = (currentPage - 1) * rowsPerPage;
@@ -43,7 +42,7 @@ const Pcs = () => {
 
   return (
     <div className="py-10 bg-[#e3e3e3]  h-screen">
-      <div className="container mx-auto py-10">
+      <div className="container mx-auto pt-10">
         <div className="dark bg-muted text-foreground px-4 md:py-2">
           <div className="flex gap-2 md:items-center">
             <div className="flex grow gap-3 md:items-center">
@@ -57,6 +56,7 @@ const Pcs = () => {
                   All Pcs
                 </p>
                 <div className="flex gap-2 max-md:flex-wrap">
+             
                   <Button
                     onClick={() => navigate("/add-pc")}
                     size="sm"
@@ -70,7 +70,6 @@ const Pcs = () => {
           </div>
         </div>
       </div>
-
       <div className="container mx-auto">
         <div className="relative overflow-x-auto shadow-md ">
           <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -81,6 +80,7 @@ const Pcs = () => {
                 <th scope="col" className="px-6 py-3">Lab Name</th>
                 <th scope="col" className="px-6 py-3">Status</th>
                 <th scope="col" className="px-6 py-3">Created on</th>
+                <th scope="col" className="px-6 py-3">Turn-off to Repair</th>
                 <th scope="col" className="px-6 py-3">Action</th>
               </tr>
             </thead>
@@ -116,7 +116,7 @@ const Pcs = () => {
                     <td className="px-6 py-4">
                       {pc.createdAt.toDate().toLocaleDateString("en-In")}
                     </td>
-                    <td className="px-6 py-4 text-right flex gap-4">
+                    <td className="px-20 py-4 gap-4">
                       <div className="inline-flex items-center gap-2 ">
                         <Switch
                           id={id}
@@ -127,18 +127,23 @@ const Pcs = () => {
                           Colored switch
                         </Label>
                       </div>
-                      <Link
-                        to={`/edit-pc/${pc.pcId}/${pc.labId}`}
-                        className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                      >
-                        Edit
-                      </Link>
-                      <Link
-                        onClick={() => deletePc(pc.pcId, pc.labId)}
-                        className="font-medium text-red-600 dark:text-red-500 hover:underline"
-                      >
-                        Delete
-                      </Link>
+                    </td>
+                    <td >
+                      <div className="flex items-center gap-4">
+                        <Link
+                          to={`/edit-pc/${pc.pcId}/${pc.labId}`}
+                          className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                        >
+                          Edit
+                        </Link>
+                        <Link
+                          onClick={() => deletePc(pc.pcId, pc.labId)}
+                          className="font-medium text-red-600 dark:text-red-500 hover:underline"
+                        >
+                          Delete
+                        </Link>
+                      </div>
+
                     </td>
                   </tr>
                 );
@@ -155,7 +160,7 @@ const Pcs = () => {
                   <PaginationPrevious
                     onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
                     className={
-                      currentPage === 1 ? "pointer-events-none opacity-50" : ""
+                      currentPage === 1 ? "pointer-events-none cursor-pointer opacity-50" : ""
                     }
                   />
                 </PaginationItem>
@@ -171,7 +176,9 @@ const Pcs = () => {
                     <PaginationLink
                       isActive={page === currentPage}
                       onClick={() => setCurrentPage(page)}
+                      className='cursor-pointer'
                     >
+
                       {page}
                     </PaginationLink>
                   </PaginationItem>
@@ -189,7 +196,7 @@ const Pcs = () => {
                     }
                     className={
                       currentPage === totalPages
-                        ? "pointer-events-none opacity-50"
+                        ? "pointer-events-none cursor-pointer opacity-50"
                         : ""
                     }
                   />

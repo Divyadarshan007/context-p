@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router-dom"
 import { StudentContext } from "../../context/StudentContextProvider"
 import { LabContext } from "../../context/LabContextProvider"
 import { PcContext } from "../../context/PcContextProvider"
-import { Badge } from "@/components/ui/badge"
 import { EclipseIcon } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
@@ -20,7 +19,7 @@ import { usePagination } from "@/hooks/use-pagination"
 
 const AllStudents = () => {
 
-  const { students } = useContext(StudentContext)
+  const { students, deleteStudent } = useContext(StudentContext)
   const { showLab } = useContext(LabContext)
   const { showPc } = useContext(PcContext)
   const navigate = useNavigate()
@@ -40,7 +39,7 @@ const AllStudents = () => {
 
   return (
     <div className="py-10 bg-[#e3e3e3] h-screen">
-      <div className="container mx-auto py-10">
+      <div className="container mx-auto pt-10">
         <div className="dark bg-muted text-foreground px-4 md:py-2">
           <div className="flex gap-2 md:items-center">
             <div className="flex grow gap-3 md:items-center">
@@ -96,17 +95,16 @@ const AllStudents = () => {
                     {student?.createdAt.toDate().toLocaleDateString("en-In")}
                   </td>
                   <td className="px-6 py-4 justify-center flex gap-4">
-                    
+
                     <Link
-                      to={`/edit-lab/${student?.id}`}
+                      to={`/edit-student/${student?.studentId}`}
                       className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                     >
                       Edit
                     </Link>
                     <Link
-                      onClick={() => deleteLab(student?.id)}
-                      className="font-medium text-red-600 dark:text-red-500 hover:underline"
-                    >
+                      onClick={() => deleteStudent(student?.studentId)}
+                      className="font-medium text-red-600 dark:text-red-500 hover:underline">
                       Delete
                     </Link>
                   </td>

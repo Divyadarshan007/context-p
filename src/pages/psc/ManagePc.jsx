@@ -21,7 +21,6 @@ const ManagePc = () => {
             setIsEdit(true)
         }
     }, [pcId])
-
     const handleChange = (e) => {
         setInput({ ...input, [e.target.id]: e.target.value })
     }
@@ -40,7 +39,6 @@ const ManagePc = () => {
             await addPc(input)
             navigate('/pcs')
         }
-
     }
     return (
         <div className="bg-[#e3e3e3] h-screen py-10">

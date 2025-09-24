@@ -11,7 +11,7 @@ const PcContextProvider = ({ children }) => {
     await addDoc(collection(db, "pcs"), {
       createdAt: new Date(),
       ...pc,
-      status:"Available"
+      status: "Available"
     });
 
     await updateDoc(doc(db, "labs", pc.labId), { assigned: increment(-1) })
@@ -32,7 +32,7 @@ const PcContextProvider = ({ children }) => {
     });
     setPcs(allPcs);
   };
-  const updatePc = async (pcId, updatedVal,labId) => {
+  const updatePc = async (pcId, updatedVal, labId) => {
     await updateDoc(doc(db, "labs", updatedVal.labId), { assigned: increment(-1) })
     await updateDoc(doc(db, "pcs", pcId), updatedVal)
     await updateDoc(doc(db, "labs", labId), { assigned: increment(1) })
