@@ -125,3 +125,7 @@
 .heightCustom {
   height: calc(100vh - 74.6px);
 }
+
+.back-attach{
+  background-attachment: fixed;
+}

@@ -10,6 +10,8 @@ import ManagePc from "./pages/psc/ManagePc"
 import Pcs from "./pages/psc/Pcs"
 import ManageStudent from "./pages/students/ManageStudent"
 import AllStudents from "./pages/students/AllStudents"
+import Home from "./pages/Home"
+
 
 
 
@@ -19,7 +21,8 @@ const App = () => {
     <BrowserRouter>
       <Header />
       <Routes>
-        <Route path="/" element={<ProtectedRoute Component={Dashboard} />} />
+        <Route path="/" element={<ProtectedRoute Component={Home} />} />
+        <Route path="/dashboard" element={<ProtectedRoute Component={Dashboard} />} />
         <Route path="/login" element={<Login />} />
         <Route path="/labs" element={<ProtectedRoute Component={Lab} />} />
         <Route path="/add-lab" element={<ProtectedRoute Component={AddLab} />} />
