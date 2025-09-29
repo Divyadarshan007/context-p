@@ -9,7 +9,7 @@ const LabPcStudentTable = () => {
   const { students } = useContext(StudentContext);
 
   return (
-    <div className="bg-white rounded-xl shadow-md p-4 md:p-6 w-full h-[200px] md:h-[300px] lg:h-[400px] overflow-auto">
+    <div className="bg-white rounded-xl shadow-md p-4 md:p-6 w-full h-[200px] md:h-[300px] lg:h-[500px] overflow-auto">
       <h2 className="text-lg md:text-xl font-bold mb-2 md:mb-4 text-center">
         Labs, PCs & Students
       </h2>

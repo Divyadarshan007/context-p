@@ -11,7 +11,8 @@ const ManageStudent = () => {
   const [input, setInput] = useState({
     name: '', email: '', grid: '', labId: '', pcId: ''
   })
-  const { stuId } = useParams();
+  const { stuId, pcId } = useParams();
+  
   const navigate = useNavigate()
   const [filteredPc, setFilteredPc] = useState([])
   const { labs, showLab } = useContext(LabContext)
@@ -43,7 +44,7 @@ const ManageStudent = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     if (isEdit) {
-      await editStudent(input, stuId)
+      await editStudent(input, stuId, pcId)
       navigate('/students')
 
     } else {

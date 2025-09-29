@@ -31,12 +31,23 @@ const StudentContextProvider = ({ children }) => {
         })
         setStudents(allStudent)
     }
-    const editStudent = async (stu, stuId) => {
+    const editStudent = async (stu, stuId, pcId) => {
         await updateDoc(doc(db, 'students', stuId), stu)
+        await updateDoc(doc(db, "pcs", stu.pcId), {
+            status: "Occupied"
+        })
+        if (pcId) {
+            await updateDoc(doc(db, "pcs", pcId), { 
+                status: "Available"
+            })
+        }
+
+
         fetchAllStudent()
+        fetchAllPc()
     }
 
-    const deleteStudent = async(stuId) => {
+    const deleteStudent = async (stuId) => {
         await deleteDoc(doc(db, 'students', stuId))
         fetchAllStudent()
     }

@@ -32,13 +32,15 @@ const PcContextProvider = ({ children }) => {
     });
     setPcs(allPcs);
   };
+
   const updatePc = async (pcId, updatedVal, labId) => {
     await updateDoc(doc(db, "labs", updatedVal.labId), { assigned: increment(-1) })
     await updateDoc(doc(db, "pcs", pcId), updatedVal)
     await updateDoc(doc(db, "labs", labId), { assigned: increment(1) })
     fetchAllPc()
     fetchData()
-  }
+  };
+
   const deletePc = async (pcId, labId) => {
     await deleteDoc(doc(db, "pcs", pcId))
     await updateDoc(doc(db, "labs", labId), { assigned: increment(1) })
@@ -51,7 +53,7 @@ const PcContextProvider = ({ children }) => {
       const pcName = pcs.find((pc) => {
         return pc.pcId == pcId;
       });
-      return pcName?.name ? pcName?.name : "Assigned"
+      return pcName?.name ? pcName?.name : "Not Assigned"
     } else {
       return "Not Assigned"
     }
@@ -71,7 +73,6 @@ const PcContextProvider = ({ children }) => {
 
     fetchAllPc()
   }
-
 
   let value = {
     addPc,

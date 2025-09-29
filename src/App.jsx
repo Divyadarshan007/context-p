@@ -31,7 +31,7 @@ const App = () => {
         <Route path="/edit-lab/:labId" element={<ProtectedRoute Component={AddLab} />} />
         <Route path="/edit-pc/:pcId/:labId" element={<ProtectedRoute Component={ManagePc} />} />
         <Route path="/add-student" element={<ProtectedRoute Component={ManageStudent} />} />
-        <Route path="/edit-student/:stuId" element={<ProtectedRoute Component={ManageStudent} />} />
+        <Route path="/edit-student/:stuId/:pcId" element={<ProtectedRoute Component={ManageStudent} />} />
         <Route path="/students" element={<ProtectedRoute Component={AllStudents} />} />
         <Route path="*" element={<ErrorPage />} />
 

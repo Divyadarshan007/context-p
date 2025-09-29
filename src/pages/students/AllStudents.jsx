@@ -97,7 +97,7 @@ const AllStudents = () => {
                   <td className="px-6 py-4 justify-center flex gap-4">
 
                     <Link
-                      to={`/edit-student/${student?.studentId}`}
+                      to={`/edit-student/${student?.studentId}/${student?.pcId}`}
                       className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                     >
                       Edit

@@ -178,7 +178,6 @@ const Pcs = () => {
                       onClick={() => setCurrentPage(page)}
                       className='cursor-pointer'
                     >
-
                       {page}
                     </PaginationLink>
                   </PaginationItem>

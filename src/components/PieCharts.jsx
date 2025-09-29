@@ -32,17 +32,14 @@ const PieCharts = () => {
   }));
 
   return (
-    <div className="bg-white rounded-xl shadow-md p-4 md:p-6 h-[200px] md:h-[300px] lg:h-[400px]">
+    <div className="bg-white rounded-xl shadow-md p-4 md:p-6 h-[200px] md:h-[300px] lg:h-[500px]">
       <h2 className="text-xl font-bold mb-4 md:mb-6 text-center">
         Overview: Labs, PCs & Students
       </h2>
 
-      {/* Chart Container fills available height */}
       <ResponsiveContainer width="100%" height="100%">
         <PieChart>
-          <Tooltip />
-
-          {/* Inner Pie: Labs */}
+          <Tooltip />          
           <Pie
             data={labData}
             dataKey="value"
@@ -60,7 +57,6 @@ const PieCharts = () => {
             Labs
           </text>
 
-          {/* Middle Pie: PCs */}
           <Pie
             data={pcStatusData}
             dataKey="value"
@@ -79,7 +75,6 @@ const PieCharts = () => {
             PCs
           </text>
 
-          {/* Outer Pie: Students */}
           <Pie
             data={studentPerLab}
             dataKey="value"
