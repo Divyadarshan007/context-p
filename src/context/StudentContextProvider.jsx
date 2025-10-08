@@ -36,8 +36,8 @@ const StudentContextProvider = ({ children }) => {
         await updateDoc(doc(db, "pcs", stu.pcId), {
             status: "Occupied"
         })
-        if (pcId) {
-            await updateDoc(doc(db, "pcs", pcId), { 
+        if (pcId && pcId !== stu.pcId) {
+            await updateDoc(doc(db, "pcs", pcId), {
                 status: "Available"
             })
         }
