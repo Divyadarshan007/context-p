@@ -5,6 +5,7 @@ import AuthContextProvider from './context/AuthContextProvider.jsx'
 import LabContextProvider from './context/LabContextProvider.jsx'
 import PcContextProvider from './context/PcContextProvider.jsx'
 import StudentContextProvider from './context/StudentContextProvider.jsx'
+import 'rsuite/dist/rsuite-no-reset.min.css';
 
 
 createRoot(document.getElementById('root')).render(
